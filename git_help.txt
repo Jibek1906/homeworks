@@ -1,0 +1,10 @@
+git --version
+git config --global user.name "Jibek1906"
+git config --global user.mail "jibek.cabirova@mail.ru"
+git config --list
+открыть свою папку
+и в папке git init
+
+git remote add origin https://github.com/Jibek1906/group48.git
+Отправлять ссылку HTTPS
+git add .
