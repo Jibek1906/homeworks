@@ -8,5 +8,8 @@ git config --list
 git remote add origin https://github.com/Jibek1906/group48.git
 Отправлять ссылку HTTPS
 git add .
-git coomit -m "name of commit"
-git push origin master
+git commit -m "name of commit"
+git push origin mastergit
+push -u origin main
+
+git status
