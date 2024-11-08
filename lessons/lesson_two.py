@@ -1,83 +1,45 @@
 # Github - Version Control System
 
 class Animal:
-    # def info(self) : это сигнатруа метода
+    # Конструктор класса Animal
     def __init__(self, name, age):
-        # поле
-        self.__name = name # модификатор приватности __
+        # Поля класса, с модификатором приватности __
+        self.__name = name
         self.__age = age
-        self.__was_born()
+        self.__was_born()  # Вызываем метод, который сообщает о рождении
 
-    def set_age(self, age): # set
-        if type(age) == int and age > 0:
+    def set_age(self, age):
+        if isinstance(age, int) and age > 0:
             self.__age = age
         else:
-            raise ValueError("Age must be an integer") # вызывает тип ошибки
+            raise ValueError("Age must be a positive integer")  # Генерируем ошибку при некорректном значении
 
     def set_name(self, name):
         self.__name = name
 
-    def get_name(self): # get
-        return self.__name
-
-    def get_age(self):
-        return self.__age
-
-    def info(self):
-        return f'NAME: {self.__name}, AGE: {self.__age}, BIRTH YEAR: {2024 - self.__age}'
-
-    def __was_born(self):
-
-class Cat(Animal):
-    def __init__(self, name, age):
-        # super().__init__(name, age)
-        super(Cat, self).__init__(name, age) # второй способ
-
-class Dog(Animal):
-    def __init__(self, name, age, commands):
-        super(Dog, self).__init__(name, age)
-        self.__commands = commands
-
-some_animal = Animal('Bob', 22)
-some_animal.set_age(5)
-print(some_animal.info())
-print(some_animal.get_name())
-
-class Animal:
-    def __init__(self, name, age):
-        self.__name = name
-        self.__age = age
-        self.__was_born()
-
-    def get_age(self):
-        return self.__age
-
-    def set_age(self, age):
-        if type(age) == int and age > 0:
-            self.__age = age
-        else:
-            raise ValueError('Wrong value for age field. It must be positive number.')
-
-    def __was_born(self):
-        print(f'Animal {self.__name} was born.')
-
+    # Геттер для имени
     def get_name(self):
         return self.__name
 
-    def set_name(self, name):
-        self.__name = name
+    # Геттер для возраста
+    def get_age(self):
+        return self.__age
 
     def info(self):
         return f'NAME: {self.__name}, AGE: {self.__age}, BIRTH YEAR: {2024 - self.__age}'
 
+    # Приватный метод для вывода информации о рождении
+    def __was_born(self):
+        print(f'Animal {self.__name} was born.')
+
+    # Абстрактный метод, который должен быть реализован в дочерних классах
     def make_voice(self):
         raise NotImplementedError('Method make_voice must be implemented.')
 
 
 class Fish(Animal):
     def __init__(self, name, age):
-        # super().__init__(name, age)
-        super(Fish, self).__init__(name, age)
+        super(Fish, self).__init__(name, age)  # Инициализация родительского класса 2 вид
 
     def make_voice(self):
         pass
@@ -85,7 +47,6 @@ class Fish(Animal):
 
 class Cat(Animal):
     def __init__(self, name, age):
-        # super().__init__(name, age)
         super(Cat, self).__init__(name, age)
 
     def make_voice(self):
@@ -95,7 +56,7 @@ class Cat(Animal):
 class Dog(Animal):
     def __init__(self, name, age, commands):
         super(Dog, self).__init__(name, age)
-        self.__commands = commands
+        self.__commands = commands  # Приватное поле для команд собаки
 
     @property
     def commands(self):
@@ -105,6 +66,7 @@ class Dog(Animal):
     def commands(self, value):
         self.__commands = value
 
+    # Переопределение метода info для добавления информации о командах
     def info(self):
         return super().info() + f', COMMANDS: {self.__commands}'
 
@@ -125,32 +87,21 @@ class FightingDog(Dog):
     def wins(self, value):
         self.__wins = value
 
+    # Переопределение метода info для добавления информации о победах
     def info(self):
         return super().info() + f', WINS: {self.__wins}'
 
     def make_voice(self):
         print('Rrr woof')
 
-
-# some_animal = Animal('Anim', 3)
-# some_animal.set_age(4)
-# print(some_animal.info())
-# print(some_animal.get_name())
-
 cat = Cat('Tom', 5)
-# print(cat.info())
-
 dog = Dog('Snoopy', 3, 'Sit')
-dog.commands = 'Sit, run'
-# print(dog.commands)
-# print(dog.info())
-
+dog.commands = 'Sit, run'  # Изменение команды
 fighting_dog = FightingDog('Reks', 1, 'Fight', 10)
-# print(fighting_dog.info())
-
 fish = Fish('Dori', 2)
 
+# Список всех животных
 animals_list = [cat, fish, dog, fighting_dog]
 for animal in animals_list:
-    print(animal.info())
+    print(animal.info())  # Вывод информации о каждом животном
     animal.make_voice()
