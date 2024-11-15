@@ -1,6 +1,11 @@
 # __ модификация
 # множественное наследование
 # магические методы - потому что запускаются не явным образом,вызываем не по названию, а они выполняются автоматически в определенный момент
+# распечатка индекса идет от класса изначального object <class 'object'>
+# методы бывают - магическими, обычными, классовыми и статичными
+# посмотреть обычные и классовые методы разница
+# статичные методы - это будто обычная функция вложена в класс не взаимодействуют с объектами класса и аттрибутами класса
+# суть ООП в том, что объекты взаимодействуют друг с другом на основе адресов
 
 class Calculator:
     @staticmethod
@@ -16,7 +21,7 @@ class Person:
         self.__name = name
         self.__age = age
 
-    @property
+    @property # декоратор
     def name(self):
         return self.__name
 
@@ -28,7 +33,7 @@ class Car:
     def __init__(self, model, year, owner):
         self.__model = model
         self.__year = year
-        if type(owner) == Person:
+        if type(owner) == Person: # без этого будет просто записываться в srting, обязываем принимать объект сложного типа данных person
             self.__owner = owner
 
     @property
@@ -53,22 +58,22 @@ class Car:
     def __str__(self): # магический метод Простыми словами, __str__ — это метод, который говорит Python, как представить объект в виде строки. Когда мы вызываем print() на объекте, Python смотрит, есть ли у него метод __str__, и если да, использует его, чтобы понять, что выводить.
         return f'MODEL: {self.__model}, YEAR: {self.__year} OWNER: {self.__owner.name}' # будет робать у всех наследуемых классов, но только выодить точно так же, как здесь, чтобы получить другой результат переопределяем внутри дочерних классов
 
-    def __lt__(self, other):
-        return self.__year < other.__year
+    def __lt__(self, other): # lower than
+        return self.__year < other.__year # __year обращаемся напрямую, year через getter
 
-    def __gt__(self, other):
+    def __gt__(self, other): # greater than
         return self.__year > other.__year
 
-    def __eq__(self, other):
+    def __eq__(self, other): # equal
         return self.__year == other.__year
 
-    def __ne__(self, other):
+    def __ne__(self, other): # not egual
         return self.__year != other.__year
 
-    def __le__(self, other):
+    def __le__(self, other): # less or equal
         return self.__year <= other.__year
 
-    def __ge__(self, other):
+    def __ge__(self, other): # greater or equal
         return self.__year >= other.__year
 
 class FuelCar(Car):
@@ -78,7 +83,8 @@ class FuelCar(Car):
     def get_fuel_type():
         return 'AI - 95'
 
-    @classmethod
+    # в cls автоматически передается адрес класса
+    @classmethod  # работают с классовыми аттрибутами, либо с другими классовыми методами, но не имеет никакой связи к аттрибутам объекта после self и также к методам относящимся к объектам
     def buy_fuel(cls, amount):
         cls.__total_fuel += amount
         print(cls.print_total_fuel())
@@ -126,7 +132,7 @@ class ElectricCar(Car):
     def __str__(self):
         return super().__str__() + f', BATTERY: {self.__battery}'
 
-class HybridCar(ElectricCar, FuelCar):
+class HybridCar(ElectricCar, FuelCar): # приоритет будет у первого прописанного класса
     def __init__(self, model, year, fuel_bank, battery, owner):
         FuelCar.__init__(self, model, year, fuel_bank, owner)
         ElectricCar.__init__(self, model, year, battery, owner)
@@ -134,7 +140,7 @@ class HybridCar(ElectricCar, FuelCar):
 # some_car = Car('Audi', 2000)
 # print(some_car) без метода __str__ выведет адрес объекта в памяти
 
-FuelCar.buy_fuel(500)
+FuelCar.buy_fuel(500) # при выозове self он будет принимать новое значение, так как был вызван не через объект, а через название класса
 
 my_friend = Person('Jim', 30)
 
@@ -170,6 +176,6 @@ print(f'Factory FUEL_CAR uses {FuelCar.get_fuel_type()} fuel.')
 
 print(f'Owner of prius was born in {2024 - hybrid_car.owner.age}.')
 
-# print(HybridCar.mro) покажет очередность приорететов
+print(HybridCar.mro) # покажет очередность приорететов [<class '__main__.HybridCar'>, <class '__main__.ElectricCar'>, <class '__main__.FuelCar'>, <class '__main__.Car'>, <class 'object'>]
 
 # первй приоритет перед классом это object
