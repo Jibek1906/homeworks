@@ -43,3 +43,5 @@ print(commented)
 # pip freeze > reqs.txt - создаст файл с библиотеками и их версиями
 # pip install -r reqs.txt - установит все билиотеки и их версии через файл
 # merge - соединяется
+# git branch name_of_branch - создаем ветку
+# git checkout name_of_branch - переключаемся между ветками
