@@ -45,3 +45,5 @@ print(commented)
 # merge - соединяется
 # git branch name_of_branch - создаем ветку
 # git checkout name_of_branch - переключаемся между ветками
+# git log - путь сохранений
+# git checkout -b modify-help - создает и сразу переходит на ветку 
