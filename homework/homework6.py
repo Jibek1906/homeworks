@@ -10,7 +10,7 @@ def selection_sort(unsorted):
     return unsorted
 
 
-def binary_search(A, Val):
+def binary_search(Val, A):
     N = len(A)
     ResultOk = False
     First = 0
@@ -35,10 +35,10 @@ def binary_search(A, Val):
         print("Элемент не найден")
 
 
-unsorted_list = [23, 45, 1, 3, 12, 7, 5, 18]
+unsorted_list = [23, 45, 1, 3, 12, 7, 5, 19]
 
 sorted_list = selection_sort(unsorted_list)
 
 print("Sorted list:", sorted_list)
 
-binary_search(sorted_list, 7)
+binary_search(19,sorted_list)
