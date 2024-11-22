@@ -39,6 +39,8 @@ unsorted_list = [23, 45, 1, 3, 12, 7, 5, 19]
 
 sorted_list = selection_sort(unsorted_list)
 
+print(sorted_list)
+
 print("Sorted list:", sorted_list)
 
 binary_search(19,sorted_list)
