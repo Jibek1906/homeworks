@@ -142,4 +142,5 @@ insert_data(db_name, "INSERT INTO students (first_name, last_name, city_id) VALU
     ('Акжол', 'Ахматов', 7)
 ])
 
+
 display_menu(db_name)
