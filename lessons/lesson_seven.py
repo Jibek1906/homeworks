@@ -1,7 +1,29 @@
 import sqlite3
+from audioop import error
 
 
-#
+# SQL (Structured Query Language) — это язык, который используется для работы с базами данных. Он позволяет создавать, изменять, удалять и получать данные из базы. Простыми словами, это как язык общения с базой данных, чтобы узнать, что в ней хранится, или изменить данные.
+# субд - система управления базами данных
+# система - набор библиотек и инструментов, которые позволяют работать с базами данных
+# CRUD - CREATE READ UPDATE DELETE основные операции для базы данных
+# таблицы - колонки это аттрибуты, а строки записи
+# при взаимодействии с третьей стороной всегда код помешаем в try
+# запросы помещаются в '''''' в самом sql также
+# Varchar - для небольшого объема текста, text - для более крупного объема информации
+# NULL - по умолчанию пустая это значит не обязательна для заполнения
+# чтобы прогнать любой sql запрос, нам нужно получить объект cursor
+# в sql тип данных str и date всегда в одинарных кавычках ''
+# dml - data manipulation language это операции, которые вносят изменения в нашу базу данных UPDATE DELETE ADD
+# select
+# full_name, is_married, (case # это if в sql
+# when is_married = 0 then 'single'
+# when is_married= 1 then 'married'
+# else 'unknown' end) as marital_status
+# from employees
+# сортировка в sql select * from employees order by salary
+# сортировка в sql select * from employees order by salary desc - обратная сортировка
+
+
 # def create_connection(db_name):
 #     connection = None
 #     try:
@@ -30,11 +52,14 @@ import sqlite3
 #     except sqlite3.Error as e:
 #         print(e)
 
+
+
 def create_table(db_name, create_table_sql):
     try:
         with sqlite3.connect(db_name) as connection:
             cursor = connection.cursor()
             cursor.execute(create_table_sql)
+            # execute - это метод объекта cursor, который принимает SQL-запрос в виде строки и выполняет его. В данном случае он используется для выполнения команды создания таблицы
     except sqlite3.Error as e:
         print(e)
 
@@ -47,6 +72,7 @@ def insert_employee(db_name, employee):
         with sqlite3.connect(db_name) as connection:
             cursor = connection.cursor()
             cursor.execute(sql, employee)
+            connection.commit()
     except sqlite3.Error as e:
         print(e)
 
@@ -108,15 +134,16 @@ CREATE TABLE employees (
 '''
 
 database_name = 'group_48.db'
-my_connection = create_connection(database_name)
-if my_connection is not None:
-    print('Successfully connected to database')
-    # create_table(my_connection, sql_to_create_employees_table)
-    insert_employee(my_connection,
-                    ('Jibek Manasova', 2400.5, 'Programming', '2000-01-25', False))
-    my_connection.close()
+create_table(database_name, sql_to_create_employees_table)
 
-# create_table(database_name, sql_to_create_employees_table)
+# my_connection = create_connection(database_name)
+# if my_connection is not None:
+#     print('Successfully connected to database')
+#     # create_table(my_connection, sql_to_create_employees_table)
+#     insert_employee(my_connection,
+#                     ('Jibek Manasova', 2400.5, 'Programming', '2000-01-25', False))
+#     my_connection.close()
+
 # insert_employee(database_name, ('Jibek Manasova', 2400.5, 'Programming', '2000-01-25', False))
 # insert_employee(database_name, ('Mark Daniels', 1500.0, 'Football', '1999-01-02', False))
 # insert_employee(database_name, ('Alex Brilliant', 2300.5, None, '1989-12-31', True))

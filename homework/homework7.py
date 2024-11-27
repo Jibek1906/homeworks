@@ -26,7 +26,6 @@ def insert_product(db_name, product):
         with sqlite3.connect(db_name) as connection:
             cursor = connection.cursor()
             cursor.execute(sql, product)
-            connection.commit()
     except sqlite3.Error as error:
         print(f"Ошибка при добавлении товара: {error}")
 
